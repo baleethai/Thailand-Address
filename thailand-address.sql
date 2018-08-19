@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS `geography`;
+DROP TABLE IF EXISTS `oc_geography`;
 
-CREATE TABLE `geography` (
-  `GEO_ID` int(5) NOT NULL AUTO_INCREMENT,
-  `GEO_NAME` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`GEO_ID`)
+CREATE TABLE `oc_geography` (
+  `geo_id` int(5) NOT NULL AUTO_INCREMENT,
+  `geo_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`geo_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `geography` WRITE;
+LOCK TABLES `oc_geography` WRITE;
 
-INSERT INTO `geography` (`GEO_ID`, `GEO_NAME`)
+INSERT INTO `oc_geography` (`geo_id`, `geo_name`)
 VALUES
 	(1,'ภาคเหนือ'),
 	(2,'ภาคกลาง'),
@@ -19,20 +19,20 @@ VALUES
 
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `district`;
+DROP TABLE IF EXISTS `oc_district`;
 
-CREATE TABLE `district` (
-  `DISTRICT_ID` int(11) NOT NULL,
-  `DISTRICT_CODE` varchar(512) NOT NULL,
-  `DISTRICT_NAME` varchar(512) NOT NULL,
-  `GEO_ID` int(11) NOT NULL,
-  `PROVINCE_ID` int(11) NOT NULL,
-  PRIMARY KEY (`DISTRICT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=tis620;
+CREATE TABLE `oc_district` (
+  `district_id` int(11) NOT NULL,
+  `district_code` varchar(512) NOT NULL,
+  `district_name` varchar(512) NOT NULL,
+  `geo_id` int(11) NOT NULL,
+  `province_id` int(11) NOT NULL,
+  PRIMARY KEY (`district_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `district` WRITE;
+LOCK TABLES `oc_district` WRITE;
 
-INSERT INTO `district` (`DISTRICT_ID`, `DISTRICT_CODE`, `DISTRICT_NAME`, `GEO_ID`, `PROVINCE_ID`)
+INSERT INTO `oc_district` (`district_id`, `district_code`, `district_name`, `geo_id`, `province_id`)
 VALUES
 	(1,'1001','เขตพระนคร',2,1),
 	(2,'1002','เขตดุสิต',2,1),
@@ -1036,19 +1036,19 @@ VALUES
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `province`;
+DROP TABLE IF EXISTS `oc_province`;
 
-CREATE TABLE `province` (
-  `PROVINCE_ID` int(11) NOT NULL,
-  `PROVINCE_CODE` varchar(512) NOT NULL,
-  `PROVINCE_NAME` varchar(512) NOT NULL,
-  `GEO_ID` int(11) NOT NULL,
-  PRIMARY KEY (`PROVINCE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=tis620;
+CREATE TABLE `oc_province` (
+  `province_id` int(11) NOT NULL,
+  `province_code` varchar(512) NOT NULL,
+  `province_name` varchar(512) NOT NULL,
+  `geo_id` int(11) NOT NULL,
+  PRIMARY KEY (`province_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `province` WRITE;
+LOCK TABLES `oc_province` WRITE;
 
-INSERT INTO `province` (`PROVINCE_ID`, `PROVINCE_CODE`, `PROVINCE_NAME`, `GEO_ID`)
+INSERT INTO `oc_province` (`PROVINCE_ID`, `province_code`, `province_name`, `geo_id`)
 VALUES
 	(1,'10','กรุงเทพมหานคร',2),
 	(2,'11','สมุทรปราการ',2),
@@ -1131,21 +1131,21 @@ VALUES
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `subDistrict`;
+DROP TABLE IF EXISTS `oc_sub_district`;
 
-CREATE TABLE `subDistrict` (
-  `SUB_DISTRICT_ID` int(11) NOT NULL,
-  `SUB_DISTRICT_CODE` varchar(512) NOT NULL,
-  `SUB_DISTRICT_NAME` varchar(512) NOT NULL,
-  `DISTRICT_ID` int(11) NOT NULL,
-  `PROVINCE_ID` int(11) NOT NULL,
-  `GEO_ID` int(11) NOT NULL,
-  PRIMARY KEY (`SUB_DISTRICT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=tis620;
+CREATE TABLE `oc_sub_district` (
+  `sub_district_id` int(11) NOT NULL,
+  `sub_district_code` varchar(512) NOT NULL,
+  `sub_district_name` varchar(512) NOT NULL,
+  `district_id` int(11) NOT NULL,
+  `province_id` int(11) NOT NULL,
+  `geo_id` int(11) NOT NULL,
+  PRIMARY KEY (`sub_district_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `subDistrict` WRITE;
+LOCK TABLES `oc_sub_district` WRITE;
 
-INSERT INTO `subDistrict` (`SUB_DISTRICT_ID`, `SUB_DISTRICT_CODE`, `SUB_DISTRICT_NAME`, `DISTRICT_ID`, `PROVINCE_ID`, `GEO_ID`)
+INSERT INTO `oc_sub_district` (`sub_district_id`, `sub_district_code`, `sub_district_name`, `district_id`, `province_id`, `geo_id`)
 VALUES
 	(1,'100101','พระบรมมหาราชวัง',1,1,2),
 	(2,'100102','วังบูรพาภิรมย์',1,1,2),
@@ -8048,7 +8048,7 @@ VALUES
 	(6918,'700201','จอมบึง',772,55,4),
 	(6919,'700202','ปากช่อง',772,55,4);
 
-INSERT INTO `subDistrict` (`SUB_DISTRICT_ID`, `SUB_DISTRICT_CODE`, `SUB_DISTRICT_NAME`, `DISTRICT_ID`, `PROVINCE_ID`, `GEO_ID`)
+INSERT INTO `oc_sub_district` (`sub_district_id`, `sub_district_code`, `sub_district_name`, `district_id`, `province_id`, `geo_id`)
 VALUES
 	(6920,'700203','เบิกไพร',772,55,4),
 	(6921,'700204','ด่านทับตะโก',772,55,4),
@@ -10049,20 +10049,20 @@ VALUES
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `zipcode`;
+DROP TABLE IF EXISTS `oc_zipcode`;
 
-CREATE TABLE `zipcode` (
-  `ZIPCODE_ID` int(11) NOT NULL,
-  `SUB_DISTRICT_CODE` varchar(512) NOT NULL,
-  `PROVINCE_ID` varchar(512) NOT NULL,
-  `DISTRICT_ID` varchar(512) NOT NULL,
-  `ZIPCODE` varchar(512) NOT NULL,
-  PRIMARY KEY (`ZIPCODE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=tis620;
+CREATE TABLE `oc_zipcode` (
+  `zipcode_id` int(11) NOT NULL,
+  `sub_district_code` varchar(512) NOT NULL,
+  `province_id` varchar(512) NOT NULL,
+  `district_id` varchar(512) NOT NULL,
+  `zipcode` varchar(512) NOT NULL,
+  PRIMARY KEY (`zipcode_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `zipcode` WRITE;
+LOCK TABLES `oc_zipcode` WRITE;
 
-INSERT INTO `zipcode` (`ZIPCODE_ID`, `SUB_DISTRICT_CODE`, `PROVINCE_ID`, `DISTRICT_ID`, `ZIPCODE`)
+INSERT INTO `oc_zipcode` (`zipcode_id`, `sub_district_code`, `province_id`, `district_id`, `zipcode`)
 VALUES
 	(1,'100101','1','1','10200'),
 	(2,'100102','1','1','10200'),
@@ -17055,7 +17055,7 @@ VALUES
 	(6989,'901116','70','928','90250'),
 	(6990,'901118','70','928','90230');
 
-INSERT INTO `zipcode` (`ZIPCODE_ID`, `SUB_DISTRICT_CODE`, `PROVINCE_ID`, `DISTRICT_ID`, `ZIPCODE`)
+INSERT INTO `oc_zipcode` (`ZIPCODE_ID`, `SUB_DISTRICT_CODE`, `PROVINCE_ID`, `DISTRICT_ID`, `ZIPCODE`)
 VALUES
 	(6991,'901201','70','929','90310'),
 	(6992,'901202','70','929','90310'),
@@ -17522,5 +17522,21 @@ VALUES
 	(7453,'961301','76','997','96130'),
 	(7454,'961302','76','997','96130'),
 	(7455,'961303','76','997','96130');
+
+DROP TABLE IF EXISTS `oc_area`;
+
+CREATE TABLE `oc_area` (
+  `area_id` int(11) NOT NULL,
+  `geo_id` int(11) NOT NULL,
+  `province_id` int(11) NOT NULL,
+  `district_id` int(11) NOT NULL,
+  `sub_district_id` int(11) NOT NULL,
+  `area_name` varchar(256) NOT NULL,
+  `area_code` varchar(100) NOT NULL,
+  PRIMARY KEY (`area_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `oc_area` WRITE;
+
 
 UNLOCK TABLES;
